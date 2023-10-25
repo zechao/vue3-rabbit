@@ -1,12 +1,11 @@
 <script setup>
-import {  RouterView } from 'vue-router'
 
 
 </script>
 
 <template>
   <el-button type="primary"> Primary</el-button>
-
+  <el-button type="danger"  size="default">danger</el-button>
 </template>
 
 <style scoped>
