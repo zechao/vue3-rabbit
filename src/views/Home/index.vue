@@ -1,5 +1,5 @@
 <template>
-    <div>
+    <div style="height: 1300px;">
         Home component
     </div>
 </template>
