@@ -2,6 +2,7 @@
 import HomePanel from './HomePanel.vue'
 import { useHotStore } from '@/stores/hot';
 
+
 import { onMounted } from 'vue'
 
 const hotStore = useHotStore()
@@ -17,7 +18,7 @@ onMounted(() => {
         <ul class="goods-list">
           <li v-for="item in hotStore.hotList" :key="item.id">
             <RouterLink to="/">
-                <img :src="item.picture" :alt="item.alt" />
+                <img v-img-lazy="item.picture"  :alt="item.alt" />
               <p class="name">{{ item.title }}</p>
               <p class="desc">{{ item.alt }}</p>
             </RouterLink>
