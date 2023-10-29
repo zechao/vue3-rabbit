@@ -12,7 +12,7 @@ const categoryStore = useCategoryStore()
         <ul class="menu">
             <li v-for="item in categoryStore.categoryList" :key="item.id">
                 <RouterLink to="/">{{ item.name }}</RouterLink>
-                <RouterLink v-for="i in item.children.slice(0,2)" :key="i.id" to="/">{{ i.name }}</RouterLink>
+                <RouterLink v-for="i in item.children.slice(0, 2)" :key="i.id" to="/">{{ i.name }}</RouterLink>
                 <!-- 弹层layer位置 -->
                 <div class="layer">
                     <h4>分类推荐 <small>根据您的购买或浏览记录推荐</small></h4>
@@ -22,7 +22,7 @@ const categoryStore = useCategoryStore()
                                 <img v-img-lazy="i.picture" alt="" />
                                 <div class="info">
                                     <p class="name ellipsis-2">
-                                        {{i.name}}
+                                        {{ i.name }}
                                     </p>
                                     <p class="desc ellipsis">{{ i.desc }}</p>
                                     <p class="price"><i>¥</i>{{ i.price }}</p>
@@ -111,35 +111,6 @@ const categoryStore = useCategoryStore()
 
                             &:hover {
                                 background: #e3f9f4;
-                            }
-
-                            img {
-                                width: 95px;
-                                height: 95px;
-                            }
-
-                            .info {
-                                padding-left: 10px;
-                                line-height: 24px;
-                                overflow: hidden;
-
-                                .name {
-                                    font-size: 16px;
-                                    color: #666;
-                                }
-
-                                .desc {
-                                    color: #999;
-                                }
-
-                                .price {
-                                    font-size: 22px;
-                                    color: $priceColor;
-
-                                    i {
-                                        font-size: 16px;
-                                    }
-                                }
                             }
                         }
                     }

@@ -1,23 +1,28 @@
-import httpInstance from '@/utils/http';
+import httpInstance from "@/utils/http";
 
-export function getBannerAPI(){
+export function getBannerAPI() {
     return httpInstance({
-        method:'get',
-        url:'/home/banner'
-    })
+        method: "get",
+        url: "/home/banner",
+    });
 }
 
-export function getNewAPI(){
+export function getNewAPI() {
     return httpInstance({
-        method:'get',
-        url:'/home/new'
-    })
+        method: "get",
+        url: "/home/new",
+    });
 }
 
-
-export function getHotAPI(){
+export function getHotAPI() {
     return httpInstance({
-        method:'get',
-        url:'/home/hot'
-    })
+        method: "get",
+        url: "/home/hot",
+    });
 }
+
+export const getGoodsAPI = () => {
+    return httpInstance({
+        url: "/home/goods",
+    });
+};
