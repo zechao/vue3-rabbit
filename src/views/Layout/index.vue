@@ -2,6 +2,8 @@
     <LayoutFixed/>
     <LayoutHeader />
     <LayoutNav />
+    <!-- use unique key to force update -->
+    <!-- <RouterView :key="$route.fullPath" /> -->
     <RouterView />
     <LayoutFooter />
 </template>

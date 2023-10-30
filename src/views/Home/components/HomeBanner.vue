@@ -1,7 +1,17 @@
 
 <script setup>
-import { useBannerStore } from '@/stores/banner';
-const bannerStore = useBannerStore()
+import { getBannerAPI } from '@/apis/home'
+import { onMounted, ref } from 'vue';
+
+const bannerList = ref([])
+
+const getBanner = async () => {
+  const res = await getBannerAPI()
+  bannerList.value = res.data.result
+}
+onMounted(() => {
+  getBanner()
+})
 
 </script>
 
@@ -10,7 +20,7 @@ const bannerStore = useBannerStore()
 <template>
   <div class="home-banner">
     <el-carousel height="500px">
-      <el-carousel-item v-for="item in bannerStore.bannerList" :key="item">
+      <el-carousel-item v-for="item in bannerList" :key="item">
         <img v-img-lazy="item.imgUrl" alt="">
       </el-carousel-item>
     </el-carousel>
