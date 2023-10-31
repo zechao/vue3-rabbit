@@ -1,18 +1,28 @@
-import { useRoute } from "vue-router";
+// 封装分类数据业务相关代码
+import { onMounted, ref } from "vue";
 import { getCategoryAPI } from "@/apis/category";
-import { ref, watch } from "vue";
+import { onBeforeRouteUpdate, useRoute } from "vue-router";
 
 export function useCategory() {
-    const route = useRoute();
-    // fetch the information when params change
+    // 获取分类数据
     const categoryData = ref({});
-    watch(
-        () => route.params.id,
-        async (newId) => {
-            const res = await getCategoryAPI(newId);
-            categoryData.value = res.data.result;
-        },
-        { immediate: true }
-    );
-    return { categoryData };
+    const route = useRoute();
+
+    const getCategory = async (id = route.params.id) => {
+        const res = await getCategoryAPI(id);
+        categoryData.value = res.data.result;
+    };
+
+    onMounted(() => {
+        getCategory();
+    });
+
+    // 目标:路由参数变化的时候 可以把分类数据接口重新发送
+    onBeforeRouteUpdate((to) => {
+        // 存在问题：使用最新的路由参数请求最新的分类数据
+        getCategory(to.params.id);
+    });
+    return {
+        categoryData,
+    };
 }

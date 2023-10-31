@@ -1,8 +1,8 @@
 <script setup>
+
 import GoodsItem from '../Home/components/GoodsItem.vue'
 import { useBanner } from './composables/useBanner'
 import { useCategory } from './composables/useCategory'
-
 const { bannerList } = useBanner()
 const { categoryData } = useCategory()
 
@@ -19,31 +19,32 @@ const { categoryData } = useCategory()
                     <el-breadcrumb-item>{{ categoryData.name }}</el-breadcrumb-item>
                 </el-breadcrumb>
             </div>
-        </div>
-        <div class="home-banner">
-            <el-carousel height="500px">
-                <el-carousel-item v-for="item in bannerList" :key="item">
-                    <img v-img-lazy="item.imgUrl" alt="">
-                </el-carousel-item>
-            </el-carousel>
-        </div>
-        <div class="sub-list">
-            <h3>全部分类</h3>
-            <ul>
-                <li v-for="i in categoryData.children" :key="i.id">
-                    <RouterLink to="/">
-                        <img :src="i.picture" />
-                        <p>{{ i.name }}</p>
-                    </RouterLink>
-                </li>
-            </ul>
-        </div>
-        <div class="ref-goods" v-for="item in categoryData.children" :key="item.id">
-            <div class="head">
-                <h3>- {{ item.name }}-</h3>
+            <!-- 轮播图 -->
+            <div class="home-banner">
+                <el-carousel height="500px">
+                    <el-carousel-item v-for="item in bannerList" :key="item.id">
+                        <img v-img-lazy="item.imgUrl" alt="">
+                    </el-carousel-item>
+                </el-carousel>
             </div>
-            <div class="body">
-                <GoodsItem v-for="good in item.goods" :goods="good" :key="good.id" />
+            <div class="sub-list">
+                <h3>全部分类</h3>
+                <ul>
+                    <li v-for="i in categoryData.children" :key="i.id">
+                        <RouterLink :to="`/category/sub/${i.id}`">
+                            <img v-img-lazy="i.picture" />
+                            <p>{{ i.name }}</p>
+                        </RouterLink>
+                    </li>
+                </ul>
+            </div>
+            <div class="ref-goods" v-for="item in categoryData.children" :key="item.id">
+                <div class="head">
+                    <h3>- {{ item.name }}-</h3>
+                </div>
+                <div class="body">
+                    <GoodsItem v-for="good in item.goods" :goods="good" :key="good.id" />
+                </div>
             </div>
         </div>
     </div>
@@ -133,6 +134,7 @@ const { categoryData } = useCategory()
     width: 1240px;
     height: 500px;
     margin: 0 auto;
+
 
     img {
         width: 100%;

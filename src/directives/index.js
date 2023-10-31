@@ -1,4 +1,5 @@
 import { useIntersectionObserver } from "@vueuse/core";
+
 export const lazyPlugin = {
     install(app) {
         app.directive("img-lazy", {
@@ -8,11 +9,11 @@ export const lazyPlugin = {
                     ([{ isIntersecting }]) => {
                         if (isIntersecting) {
                             el.src = biding.value;
-                            stop()// unsubscribe observer
+                            stop(); // unsubscribe observer
                         }
                     }
                 );
-            },
+            }
         });
     },
 };
