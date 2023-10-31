@@ -17,13 +17,15 @@ onMounted(() => {
     getCategortyData()
 })
 
-const goodList = ref({})
+const goodList = ref([])
 const reqData = ref({
-    categoryID:route.params.id,
-    page:1,
-    pageSize:20,
-    sortField:'publishTime'
+    categoryID: route.params.id,
+    page: 1,
+    pageSize: 20,
+    sortField: 'publishTime'
 })
+
+
 const getGoodList = async () => {
     const res = await getSubCategoryAPI(reqData.value)
     goodList.value = res.data.result.items
@@ -32,6 +34,25 @@ const getGoodList = async () => {
 onMounted(() => {
     getGoodList()
 })
+
+
+const onTabChange = () => {
+    reqData.value.page = 1
+    getGoodList()
+
+}
+
+const disabled = ref(false)
+const load = async () => {
+    console.log("more");
+    // get next page data
+    reqData.value.page++
+    const res = await getSubCategoryAPI(reqData.value)
+    goodList.value = [...goodList.value, ...res.data.result.items]
+    if (res.data.result.items.length === 0) {
+        disabled.value = true
+    }
+}
 
 
 </script>
@@ -48,12 +69,13 @@ onMounted(() => {
             </el-breadcrumb>
         </div>
         <div class="sub-container">
-            <el-tabs>
-                <el-tab-pane label="最新商品" name="publishTime" ></el-tab-pane>
-                <el-tab-pane label="最高人气" name="orderNum" ></el-tab-pane>
-                <el-tab-pane label="评论最多" name="evaluateNum" ></el-tab-pane>
+            {{ }}
+            <el-tabs v-model="reqData.sortField" @tab-change="onTabChange">
+                <el-tab-pane label="最新商品" name="publishTime"></el-tab-pane>
+                <el-tab-pane label="最高人气" name="orderNum"></el-tab-pane>
+                <el-tab-pane label="评论最多" name="evaluateNum"></el-tab-pane>
             </el-tabs>
-            <div class="body">
+            <div class="body" v-infinite-scroll="load" :infinite-scroll-disabled="disabled">
                 <GoodsItem v-for="good in goodList" :goods="good" :key="good.id" />
             </div>
         </div>
