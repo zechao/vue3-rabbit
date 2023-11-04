@@ -1,19 +1,41 @@
 <script setup>
+import { getDetail } from '@/apis/details'
+import { useRoute } from 'vue-router'
+import { onMounted, ref } from 'vue'
+
+const goods = ref({})
+const route = useRoute()
+
+const getGoods = async () => {
+  const res = await getDetail(route.params.id)
+
+  goods.value = res.data.result
+  console.log(goods.value);
+
+}
+
+
+onMounted( () => {
+   getGoods()
+   
+})
+
 
 
 </script>
 
+
 <template>
   <div class="xtx-goods-page">
-    <div class="container">
-      <div class="bread-container">
+    <div class="container" v-if="goods.details">
+      <div class="bread-container" >
         <el-breadcrumb separator=">">
           <el-breadcrumb-item :to="{ path: '/' }">首页</el-breadcrumb-item>
-          <el-breadcrumb-item :to="{ path: '/' }">母婴
+          <el-breadcrumb-item :to="{ path: `/category/${goods.categories[1].id}` }">{{ goods.categories[1].name }}
           </el-breadcrumb-item>
-          <el-breadcrumb-item :to="{ path: '/' }">跑步鞋
+          <el-breadcrumb-item :to="{ path: `/category/sub/${goods.categories[0].id}` }">{{ goods.categories[0].name }}
           </el-breadcrumb-item>
-          <el-breadcrumb-item>抓绒保暖，毛毛虫子儿童运动鞋</el-breadcrumb-item>
+          <el-breadcrumb-item>{{ goods.name }}</el-breadcrumb-item>
         </el-breadcrumb>
       </div>
       <!-- 商品信息 -->
