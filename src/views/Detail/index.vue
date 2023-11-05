@@ -2,7 +2,8 @@
 import { getDetail } from '@/apis/details'
 import { useRoute } from 'vue-router'
 import { onMounted, ref } from 'vue'
-
+import DetailHot from './components/DetailHot.vue'
+import ImageView from '@/components/ImageView/index.vue'
 const goods = ref({})
 const route = useRoute()
 
@@ -10,14 +11,12 @@ const getGoods = async () => {
   const res = await getDetail(route.params.id)
 
   goods.value = res.data.result
-  console.log(goods.value);
 
 }
 
 
 onMounted(() => {
   getGoods()
-
 })
 
 
@@ -44,7 +43,7 @@ onMounted(() => {
           <div class="goods-info">
             <div class="media">
               <!-- 图片预览区 -->
-
+              <ImageView :image-list="goods.mainPictures" />
               <!-- 统计数量 -->
               <ul class="goods-sales">
                 <li>
@@ -74,7 +73,7 @@ onMounted(() => {
               <p class="g-name"> {{ goods.name }}</p>
               <p class="g-desc">{{ goods.desc }} </p>
               <p class="g-price">
-                <span >{{ goods.oldPrice }}</span>
+                <span>{{ goods.oldPrice }}</span>
                 <span> {{ goods.price }}</span>
               </p>
               <div class="g-service">
@@ -116,8 +115,8 @@ onMounted(() => {
                   <!-- 属性 -->
                   <ul class="attrs">
                     <li v-for="item in goods.details.properties" :key="item.name">
-                      <span class="dt">{{item.name}}</span>
-                      <span class="dd">{{item.value}}</span>
+                      <span class="dt">{{ item.name }}</span>
+                      <span class="dd">{{ item.value }}</span>
                     </li>
                   </ul>
                   <!-- 图片 -->
@@ -128,6 +127,8 @@ onMounted(() => {
             <!-- 24热榜+专题推荐 -->
             <div class="goods-aside">
 
+              <DetailHot :hot-type="1" />
+              <DetailHot :hot-type="2" />
             </div>
           </div>
         </div>
