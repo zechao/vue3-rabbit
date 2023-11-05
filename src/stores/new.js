@@ -7,7 +7,7 @@ export const useNewStore = defineStore("new", () => {
 
     const getNew = async () => {
         const res = await getNewAPI();
-        newList.value = res.data.result;
+        newList.value = res.result;
     };
 
     return { newList, getNew };

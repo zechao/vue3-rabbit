@@ -10,7 +10,7 @@ const route = useRoute()
 
 const getCategortyData = async () => {
     const res = await getCategoryFilterAPI(route.params.id)
-    categoryData.value = res.data.result
+    categoryData.value = res.result
 }
 
 onMounted(() => {
@@ -28,7 +28,7 @@ const reqData = ref({
 
 const getGoodList = async () => {
     const res = await getSubCategoryAPI(reqData.value)
-    goodList.value = res.data.result.items
+    goodList.value = res.result.items
 }
 
 onMounted(() => {
@@ -48,8 +48,8 @@ const load = async () => {
     // get next page data
     reqData.value.page++
     const res = await getSubCategoryAPI(reqData.value)
-    goodList.value = [...goodList.value, ...res.data.result.items]
-    if (res.data.result.items.length === 0) {
+    goodList.value = [...goodList.value, ...res.result.items]
+    if (res.result.items.length === 0) {
         disabled.value = true
     }
 }

@@ -7,7 +7,7 @@ export const useHotStore = defineStore("hot", () => {
 
     const getHot = async () => {
         const res = await getHotAPI();
-        hotList.value = res.data.result;
+        hotList.value = res.result;
     };
 
     return { hotList, getHot };

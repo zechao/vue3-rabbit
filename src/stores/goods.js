@@ -7,7 +7,7 @@ export const useGoodsStore = defineStore("good", () => {
 
     const getGoods = async () => {
         const res = await getGoodsAPI();
-        goodsList.value = res.data.result;
+        goodsList.value = res.result;
     };
 
     return { goodsList, getGoods };
