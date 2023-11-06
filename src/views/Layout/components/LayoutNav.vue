@@ -46,7 +46,6 @@ const confirmEvent = () => {
 <style scoped lang="scss">
 .app-topnav {
   background: #333;
-
   ul {
     display: flex;
     height: 53px;

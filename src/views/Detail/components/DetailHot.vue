@@ -1,8 +1,11 @@
 <script setup>
 
+
+
+
 import { getHotGoodsAPI } from '@/apis/details'
 import { ref, onMounted, computed } from 'vue'
-import { useRoute } from 'vue-router'
+import { useRoute, } from 'vue-router'
 
 
 const props = defineProps({
@@ -39,12 +42,12 @@ const title = computed(() => TYPEMAP[props.hotType])
     <div class="goods-hot">
         <h3>{{ title }}</h3>
         <!-- 商品区块 -->
-        <RouterLink to="/" class="goods-item" v-for="item in hotList" :key="item.id">
+        <a :href="`/detail/${item.id}`" target="_blank" class="goods-item" v-for="item in hotList" :key="item.id">
             <img v-img-lazy="item.picture" alt="" />
             <p class="name ellipsis">{{ item.name }}</p>
             <p class="desc ellipsis">{{ item.desc }}</p>
             <p class="price">&yen;{{ item.price }}</p>
-        </RouterLink>
+        </a>
     </div>
 </template>
 

@@ -1,7 +1,7 @@
 <template>
-    <LayoutFixed/>
-    <LayoutHeader />
+    <LayoutFixed />
     <LayoutNav />
+    <LayoutHeader />
     <!-- use unique key to force update -->
     <!-- <RouterView :key="$route.fullPath" /> -->
     <RouterView />
@@ -14,12 +14,12 @@ import LayoutHeader from './components/LayoutHeader.vue'
 import LayoutFixed from './components/LayoutFixed.vue'
 import LayoutFooter from './components/LayoutFooter.vue'
 
-import {onMounted} from 'vue'
+import { onMounted } from 'vue'
 import { useCategoryStore } from '@/stores/category'
 
-const categoryStore  = useCategoryStore()
+const categoryStore = useCategoryStore()
 
-onMounted(()=>{
+onMounted(() => {
     categoryStore.getCategory()
 })
 </script>

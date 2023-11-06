@@ -1,8 +1,6 @@
 <script setup>
 import { useScroll } from '@vueuse/core'
-import { useCategoryStore } from '@/stores/category';
-
-const categoryStore = useCategoryStore()
+import LayoutHeaderUl from './LayoutHeaderUl.vue'
 
 const { y } = useScroll(window)
 
@@ -16,11 +14,7 @@ const { y } = useScroll(window)
         <div class="container">
             <RouterLink class="logo" to="/" />
             <!-- 导航区域 -->
-            <ul class="app-header-nav ">
-                <li class="home" v-for="item in categoryStore.categoryList" :key="item.id">
-                    <RouterLink active-class="active" :to="`/category/${item.id}`"> {{ item.name }}</RouterLink>
-                </li>
-            </ul>
+            <LayoutHeaderUl />
 
             <div class="right">
                 <RouterLink to="/">品牌</RouterLink>
