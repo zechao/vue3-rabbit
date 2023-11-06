@@ -13,7 +13,7 @@ const cartStore = useCartStore()
             <div class="list">
 
                 <div class="item" v-for="i in cartStore.cartList" :key="i">
-                    <RouterLink to="">
+                    <RouterLink :to="`/detail/${i.id}`">
                         <img :src="i.picture" alt="" />
                         <div class="center">
                             <p class="name ellipsis-2">
@@ -35,7 +35,9 @@ const cartStore = useCartStore()
                     <p>共 {{ cartStore.totalCount }} 件商品</p>
                     <p>&yen; {{ cartStore.totalPrice }} </p>
                 </div>
-                <el-button size="large" type="primary">去购物车结算</el-button>
+                <RouterLink :to="`/cartlist`">
+                    <el-button size="large" type="primary">去购物车结算</el-button>
+                </RouterLink>
             </div>
         </div>
     </div>
