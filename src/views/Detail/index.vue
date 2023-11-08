@@ -4,7 +4,7 @@ import { useRoute } from 'vue-router'
 import { onMounted, ref } from 'vue'
 import { ElMessage } from "element-plus";
 import DetailHot from './components/DetailHot.vue'
-import { useCartStore } from '@/stores/cart'
+import { useCartStore } from '@/stores/cartStore'
 
 
 
@@ -155,15 +155,14 @@ const addCart = () => {
             <!-- 24热榜+专题推荐 -->
             <div class="goods-aside">
 
-              <DetailHot :hot-type="1" />
-              <DetailHot :hot-type="2" />
+              <DetailHot :hot-type="1" :limit="6" />
+              <DetailHot :hot-type="2" :limit="6" />
             </div>
           </div>
         </div>
       </div>
     </div>
   </div>
-
 </template>
 
 
@@ -405,4 +404,4 @@ const addCart = () => {
 .bread-container {
   padding: 25px 0;
 }
-</style>
+</style>@/stores/cartStore

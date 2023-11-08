@@ -9,7 +9,11 @@ import { useRoute, } from 'vue-router'
 
 
 const props = defineProps({
-    hotType: Number
+    hotType: Number,
+    limit: {
+        type: Number,
+        default: 3
+    }
 })
 
 
@@ -18,7 +22,8 @@ const route = useRoute()
 const getHotList = async () => {
     const res = await getHotGoodsAPI({
         id: route.params.id,
-        type: props.hotType
+        type: props.hotType,
+        limit: props.limit
     })
     hotList.value = res.result
 }
