@@ -44,8 +44,6 @@ const onTabChange = () => {
 
 const disabled = ref(false)
 const load = async () => {
-    console.log("more");
-    // get next page data
     reqData.value.page++
     const res = await getSubCategoryAPI(reqData.value)
     goodList.value = [...goodList.value, ...res.result.items]

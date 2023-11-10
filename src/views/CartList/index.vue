@@ -1,6 +1,6 @@
 <script setup>
 import { useCartStore } from '@/stores/cartStore';
-import { ref } from 'vue'
+import { ref,onMounted } from 'vue'
 import { useRouter } from 'vue-router'
 const cartStore = useCartStore()
 
@@ -35,6 +35,9 @@ const onDeleteCart = (skuId) => {
     isIndeterminate.value = cartStore.selectedCount > 0 && cartStore.selectedCount < cartStore.totalCount
 }
 
+onMounted(()=>{
+    cartStore.updateNewList()
+})
 
 </script>
 
