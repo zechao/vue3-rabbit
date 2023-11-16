@@ -27,9 +27,6 @@ const skuChanged = (sku) => {
 
 const count = ref(1)
 const skuImage = ref('')
-const countChange = (count) => {
-  
-}
 
 const onSkuPictureSelected=(picture)=>{
   skuImage.value = picture

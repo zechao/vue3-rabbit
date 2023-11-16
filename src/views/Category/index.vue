@@ -3,9 +3,14 @@
 import GoodsItem from '../Home/components/GoodsItem.vue'
 import { useBanner } from './composables/useBanner'
 import { useCategory } from './composables/useCategory'
+
+import { watch } from 'vue';
 const { bannerList } = useBanner()
 const { categoryData } = useCategory()
 
+watch(categoryData,()=>{
+    document.title = categoryData.value.name
+})
 
 </script>
 
