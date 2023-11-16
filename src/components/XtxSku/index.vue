@@ -5,7 +5,7 @@
       <dd>
         <template v-for="val in item.values" :key="val.name">
           <img :class="{ selected: val.selected, disabled: val.disabled }" @click="clickSpecs(item, val)"
-            v-if="val.picture" :src="val.picture" />
+            v-if="val.picture" v-img-lazy="val.picture"  />
           <span :class="{ selected: val.selected, disabled: val.disabled }" @click="clickSpecs(item, val)" v-else>{{
             val.name
           }}</span>
@@ -98,7 +98,7 @@ export default {
       default: () => ({ specs: [], skus: [] })
     }
   },
-  emits: ['change'],
+  emits: ['change','imgChanged'],
   setup(props, { emit }) {
     let pathMap = {}
     watchEffect(() => {
@@ -109,6 +109,9 @@ export default {
     })
 
     const clickSpecs = (item, val) => {
+      if (val.picture){
+        emit('imgChanged',val.picture)
+      }
       if (val.disabled) return false
       // 选中与取消选中逻辑
       if (val.selected) {
@@ -117,6 +120,7 @@ export default {
         item.values.forEach(bv => { bv.selected = false })
         val.selected = true
       }
+
       // 点击之后再次更新选中状态
       updateDisabledStatus(props.goods.specs, pathMap)
       // 把选择的sku信息传出去给父组件

@@ -1,19 +1,38 @@
 <script setup>
-import { ref, watch } from 'vue'
+import { onMounted, ref, watch } from 'vue'
 import { useMouseInElement } from '@vueuse/core'
 
 
 // 图片列表
 
-defineProps({
+const props = defineProps({
     imageList: {
         type: Array,
         default: () => []
+    },
+    showImage: {
+        type: String
     }
 })
 
 const curIndex = ref(0)
-const mouseEnterFn = (i) => curIndex.value = i
+
+const currentImage = ref('')
+
+const mouseEnterFn = (i) => {
+    curIndex.value = i
+    currentImage.value = props.imageList[i]
+}
+
+watch(() => props.showImage, () => {
+    currentImage.value = props.showImage
+})
+
+onMounted(() => {
+    currentImage.value = props.imageList[0]
+})
+
+
 
 const target = ref(null)
 const left = ref(0)
@@ -58,20 +77,20 @@ watch([elementX, elementY], () => {
     <div class="goods-image">
         <!-- 左侧大图-->
         <div class="middle" ref="target">
-            <img :src="imageList[curIndex]" alt="" />
+            <img :src="currentImage" alt="" />
             <!-- 蒙层小滑块 -->
             <div class="layer" v-show="!isOutside" :style="{ left: `${left}px`, top: `${top}px` }"></div>
         </div>
         <!-- 小图列表 -->
         <ul class="small">
-            <li v-for="(img, i) in imageList" :key="i" @mouseenter="mouseEnterFn(i)" :class="{ active: i === curIndex }">
+            <li v-for="(img, i) in imageList" :key="i" @click="mouseEnterFn(i)" :class="{ active: i === curIndex }">
                 <img v-img-lazy="img" alt="" />
             </li>
         </ul>
         <!-- 放大镜大图 -->
         <div class="large" :style="[
             {
-                backgroundImage: `url(${imageList[curIndex]})`,
+                backgroundImage: `url(${currentImage})`,
                 backgroundPositionX: `${positionX}px`,
                 backgroundPositionY: `${positionY}px`,
             },

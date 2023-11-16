@@ -22,13 +22,17 @@ onMounted(() => {
 
 let skuObj = {}
 const skuChanged = (sku) => {
-  console.log(sku);
   skuObj = sku
 }
 
 const count = ref(1)
+const skuImage = ref('')
 const countChange = (count) => {
-  console.log(count);
+  
+}
+
+const onSkuPictureSelected=(picture)=>{
+  skuImage.value = picture
 }
 
 
@@ -71,7 +75,7 @@ const addCart = () => {
           <div class="goods-info">
             <div class="media">
               <!-- 图片预览区 -->
-              <XtxImageView :image-list="goods.mainPictures" />
+              <XtxImageView :image-list="goods.mainPictures"  :showImage="skuImage" />
               <!-- 统计数量 -->
               <ul class="goods-sales">
                 <li>
@@ -120,7 +124,7 @@ const addCart = () => {
                 </dl>
               </div>
               <!-- sku组件 -->
-              <XtxSku :goods="goods" @change="skuChanged" />
+              <XtxSku :goods="goods" @change="skuChanged" @imgChanged="onSkuPictureSelected" />
               <!-- 数据组件 -->
               <el-input-number v-model="count" :min="1" @change="countChange" />
               <!-- 按钮组件 -->
@@ -154,7 +158,6 @@ const addCart = () => {
             </div>
             <!-- 24热榜+专题推荐 -->
             <div class="goods-aside">
-
               <DetailHot :hot-type="1" :limit="6" />
               <DetailHot :hot-type="2" :limit="6" />
             </div>
